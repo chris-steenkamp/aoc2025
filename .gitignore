@@ -1,0 +1,60 @@
+# ==========================================
+# Advent of Code 2025 - .gitignore
+# ==========================================
+
+# Puzzle inputs (private - DO NOT COMMIT)
+data/inputs/*.txt
+
+# Session/secrets
+.adventofcode.session
+.env
+*.env
+
+# ==========================================
+# Rust
+# ==========================================
+rust/target/
+rust/Cargo.lock
+
+# ==========================================
+# Python
+# ==========================================
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+python/.venv/
+
+# pytest
+.pytest_cache/
+python/.pytest_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# ==========================================
+# IDE / Editor
+# ==========================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# OS
+# ==========================================
+.DS_Store
+Thumbs.db

@@ -1,0 +1,26 @@
+[package]
+name = "aoc2025-rust"
+version = "0.1.0"
+edition = "2021"
+description = "Advent of Code 2025 Solutions in Rust"
+authors = ["Your Name"]
+
+[dependencies]
+# CLI argument parsing
+clap = { version = "4.5", features = ["derive"] }
+
+# HTTP client for input downloading (rustls for Windows compatibility)
+reqwest = { version = "0.12", features = ["blocking", "rustls-tls"], default-features = false }
+
+# Common utilities for AoC
+itertools = "0.13"
+regex = "1"
+
+# Pathfinding algorithms (BFS, DFS, Dijkstra, A*)
+pathfinding = "4"
+
+# Environment variable loading
+dotenvy = "0.15"
+
+[profile.release]
+opt-level = 3
