@@ -1,7 +1,6 @@
 """Tests for Day 01."""
 
 import pytest
-
 from aoc2025.days import day01
 
 
@@ -18,7 +17,7 @@ class TestPart1:
         """Test part one with the example input."""
         # TODO: Update expected value from puzzle description
         result = day01.part_one(example_input)
-        assert result is None  # Replace with expected value
+        assert result == 3  # Replace with expected value
 
 
 class TestPart2:
@@ -28,4 +27,4 @@ class TestPart2:
         """Test part two with the example input."""
         # TODO: Update expected value from puzzle description
         result = day01.part_two(example_input)
-        assert result is None  # Replace with expected value
+        assert result == 6  # Replace with expected value
