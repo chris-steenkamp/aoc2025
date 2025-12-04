@@ -11,7 +11,7 @@ import httpx
 AOC_YEAR = 2025
 
 # Path to data directory (relative to this file's location)
-DATA_DIR = Path(__file__).parent.parent.parent.parent.parent / "data"
+DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 
 
 def input_path(day: int) -> Path:
@@ -33,14 +33,14 @@ def get_input(day: int) -> str:
 
 def download_input(day: int) -> str:
     """Download the input for a given day from adventofcode.com.
-    
+
     Returns the path to the saved file.
     """
     session = os.environ.get("AOC_SESSION")
     if not session:
         raise ValueError(
             "AOC_SESSION environment variable not set.\n"
-            "Set it with: $env:AOC_SESSION=\"your_session_cookie_value\"\n"
+            'Set it with: $env:AOC_SESSION="your_session_cookie_value"\n'
             "Get the value from your browser's cookies at adventofcode.com"
         )
 
@@ -49,9 +49,7 @@ def download_input(day: int) -> str:
     response = httpx.get(
         url,
         cookies={"session": session},
-        headers={
-            "User-Agent": "github.com/yourusername/aoc2025 by your@email.com"
-        },
+        headers={"User-Agent": "github.com/yourusername/aoc2025 by your@email.com"},
     )
 
     if response.status_code != 200:
