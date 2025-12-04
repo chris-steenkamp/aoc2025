@@ -33,7 +33,7 @@ def main():
 @click.option("--part", "-p", type=click.IntRange(1, 2), help="Run only part 1 or 2")
 def solve(day: int, part: int | None):
     """Run a specific day's solution."""
-    click.echo(f"🎄 Advent of Code 2025 - Day {day:02d}")
+    click.echo(f"Advent of Code 2025 - Day {day:02d}")
     click.echo("=" * 40)
 
     # Get input (auto-download if missing)
@@ -60,7 +60,7 @@ def _run_part(day: int, part: int, input_text: str):
 
     if result is not None:
         click.echo(f"Part {part}: {result}")
-        click.echo(f"  ⏱️  {elapsed:.3f}ms")
+        click.echo(f"{elapsed:.3f}ms")
     else:
         click.echo(f"Part {part}: Not implemented yet")
 
