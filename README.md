@@ -64,6 +64,7 @@ Both Rust and Python have excellent Windows support. No WSL required!
   ```
 
 - **Python 3.12+**: Install via [uv](https://docs.astral.sh/uv/)
+
   ```powershell
   winget install astral-sh.uv
   ```
@@ -296,6 +297,18 @@ Both languages provide scaffolded utility modules:
 - `neighbors(x, y)` - 4 cardinal directions
 - `neighbors_diagonal(x, y)` - 8 directions
 - `find(value)` - locate first occurrence
+- `find_all(value)` - locate all occurrences
+- `find_where(predicate)` - find first position matching condition
+- `row(y)` - get an entire row by index
+- `rotate_right()`, `rotate_left()` - rotate grid 90 degrees
+
+### Arrays (`utils/arrays`)
+
+- Standalone functions for 2D array manipulation
+- `rotate_right(array)` - rotate 90 degrees clockwise
+- `rotate_left(array)` - rotate 90 degrees counter-clockwise
+- `rotate_180(array)` - rotate 180 degrees
+- `transpose(array)` - swap rows and columns
 
 ### Direction (`utils/direction`)
 
@@ -322,10 +335,18 @@ Both languages provide scaffolded utility modules:
 
 | Day | Part 1 | Part 2 | Rust | Python | Notes |
 | --- | ------ | ------ | ---- | ------ | ----- |
-| 01  | ⬜     | ⬜     | ⬜   | ⬜     |       |
-| 02  | ⬜     | ⬜     | ⬜   | ⬜     |       |
-| ... | ...    | ...    | ...  | ...    |       |
-| 25  | ⬜     | ⬜     | ⬜   | ⬜     |       |
+| 01  | ✅     | ✅     | ⬜   | ✅     |       |
+| 02  | ✅     | ✅     | ⬜   | ✅     |       |
+| 03  | ✅     | ✅     | ⬜   | ✅     |       |
+| 04  | ✅     | ✅     | ⬜   | ✅     |       |
+| 05  | ✅     | ✅     | ⬜   | ✅     |       |
+| 06  | ✅     | ✅     | ⬜   | ✅     |       |
+| 07  | ⬜     | ⬜     | ⬜   | ⬜     |       |
+| 08  | ⬜     | ⬜     | ⬜   | ⬜     |       |
+| 09  | ⬜     | ⬜     | ⬜   | ⬜     |       |
+| 10  | ⬜     | ⬜     | ⬜   | ⬜     |       |
+| 11  | ⬜     | ⬜     | ⬜   | ⬜     |       |
+| 12  | ⬜     | ⬜     | ⬜   | ⬜     |       |
 
 ⬜ Not started | 🟡 In progress | ✅ Complete
 
