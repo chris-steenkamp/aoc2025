@@ -13,7 +13,7 @@ class Grid(Generic[T]):
 
     def __init__(self, data: list[list[T]]):
         """Create a grid from a 2D list.
-        
+
         Args:
             data: 2D list where data[y][x] is the value at position (x, y)
         """
@@ -24,7 +24,7 @@ class Grid(Generic[T]):
     @classmethod
     def from_string(cls, input_text: str) -> "Grid[str]":
         """Parse a grid from a multi-line string.
-        
+
         Each character becomes a cell.
         """
         data = [list(line) for line in input_text.strip().split("\n")]
@@ -93,6 +93,28 @@ class Grid(Generic[T]):
             if predicate(v):
                 return (x, y)
         return None
+
+    def rotate_right(self) -> "Grid[T]":
+        """Rotate the grid 90 degrees clockwise.
+
+        Returns a new Grid with the rotation applied.
+        """
+        new_data = [
+            [self.data[self.height - 1 - y][x] for y in range(self.height)]
+            for x in range(self.width)
+        ]
+        return Grid(new_data)
+
+    def rotate_left(self) -> "Grid[T]":
+        """Rotate the grid 90 degrees counter-clockwise.
+
+        Returns a new Grid with the rotation applied.
+        """
+        new_data = [
+            [self.data[y][self.width - 1 - x] for y in range(self.height)]
+            for x in range(self.width)
+        ]
+        return Grid(new_data)
 
     def __str__(self) -> str:
         """Convert grid to string for display."""
