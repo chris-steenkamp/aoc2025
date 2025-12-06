@@ -116,6 +116,19 @@ class Grid(Generic[T]):
         ]
         return Grid(new_data)
 
+    def row(self, y: int) -> list[T] | None:
+        """Get an entire row by index.
+
+        Args:
+            y: The row index (0-indexed from top)
+
+        Returns:
+            A copy of the row as a list, or None if out of bounds.
+        """
+        if 0 <= y < self.height:
+            return self.data[y][:]
+        return None
+
     def __str__(self) -> str:
         """Convert grid to string for display."""
         return "\n".join("".join(str(cell) for cell in row) for row in self.data)
