@@ -8,7 +8,7 @@ from pathlib import Path
 # Paths relative to this file
 DAYS_DIR = Path(__file__).parent / "days"
 TESTS_DIR = Path(__file__).parent.parent.parent / "tests"
-DATA_DIR = Path(__file__).parent.parent.parent.parent.parent / "data"
+DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 
 
 def scaffold_day(day: int) -> None:
@@ -41,11 +41,11 @@ def scaffold_day(day: int) -> None:
     # Print instructions for manual step
     print()
     print("📝 Manual step required:")
-    print(f"   Add the import to src/aoc2025/days/__init__.py:")
+    print("   Add the import to src/aoc2025/days/__init__.py:")
     print()
     print(f"   from . import day{day_str}")
     print()
-    print(f"   And add to the DAYS dict:")
+    print("   And add to the DAYS dict:")
     print()
     print(f"   {day}: day{day_str},")
 
