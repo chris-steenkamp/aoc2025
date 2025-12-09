@@ -52,7 +52,26 @@ def part_one(input_text: str) -> int | None:
 
 def part_two(input_text: str) -> int | None:
     """Solve part two."""
-    lines = input_text.strip().split("\n")
+    lines = map(parse_numbers, input_text.strip().split("\n"))
+    lines = list(map(lambda x: Point3(x), lines))
 
-    # TODO: Implement solution
-    return None
+    distances = []
+    junction_boxes = set(lines)
+
+    for i, p1 in enumerate(lines):
+        for p2 in lines[i:]:
+            if p1 != p2:
+                heapq.heappush(distances, (euclidean_difference(p1, p2), p1, p2))
+
+    while len(junction_boxes) > 0 and len(distances) > 0:
+        _, p1, p2 = heapq.heappop(distances)
+
+        total = p1[0] * p2[0]
+
+        if p1 in junction_boxes:
+            junction_boxes.remove(p1)
+
+        if p2 in junction_boxes:
+            junction_boxes.remove(p2)
+
+    return total
