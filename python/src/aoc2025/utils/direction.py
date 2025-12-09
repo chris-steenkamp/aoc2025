@@ -1,12 +1,16 @@
 """Direction and coordinate utilities.
 
-Common types for working with 2D positions and directions.
+Common types for working with 2D and 3D positions and directions.
 """
 
+import math
 from enum import Enum
 
 # Type alias for a 2D point
 Point = tuple[int, int]
+
+# Type alias for a 3D point
+Point3 = tuple[int, int, int]
 
 
 class Direction(Enum):
@@ -105,3 +109,7 @@ def move_point(point: Point, direction: Direction, distance: int = 1) -> Point:
 def manhattan_distance(a: Point, b: Point) -> int:
     """Calculate Manhattan distance between two points."""
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+
+def euclidean_difference(a: Point3, b: Point3) -> float:
+    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2)
