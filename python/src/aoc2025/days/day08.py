@@ -23,11 +23,11 @@ def part_one(input_text: str) -> int | None:
             if p != p2:
                 heapq.heappush(distances, (euclidean_difference(p, p2), p, p2))
 
-    circuits = defaultdict(set)
+    circuits = defaultdict(list)
     for i in range(size):
         _, p1, p2 = heapq.heappop(distances)
-        circuits[p1].add(p2)
-        circuits[p2].add(p1)
+        circuits[p1].append(p2)
+        circuits[p2].append(p1)
 
     visited = []
     keys = list(circuits.keys())
