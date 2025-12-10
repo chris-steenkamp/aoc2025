@@ -3,10 +3,20 @@
 Each day is implemented as a separate module (day01, day02, etc.).
 """
 
-from . import day01, day02, day03, day04, day05, day06, day07, day08
+from . import day01, day02, day03, day04, day05, day06, day07, day08, day09
 
 # Dictionary mapping day numbers to modules
-DAYS = {1: day01, 2: day02, 3: day03, 4: day04, 5: day05, 6: day06, 7: day07, 8: day08}
+DAYS = {
+    1: day01,
+    2: day02,
+    3: day03,
+    4: day04,
+    5: day05,
+    6: day06,
+    7: day07,
+    8: day08,
+    9: day09,
+}
 
 
 def run_day(day: int, part: int, input_text: str) -> int | None:
