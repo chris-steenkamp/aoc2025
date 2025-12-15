@@ -16,10 +16,10 @@ def part_one(input_text: str) -> int | None:
     )
 
     distances = []
+
     for i, p1 in enumerate(corners):
-        for p2 in corners[i:]:
-            if p1 != p2:
-                heapq.heappush(distances, (-manhattan_distance(p1, p2), p1, p2))
+        for p2 in corners[i + 1 :]:
+            heapq.heappush(distances, (-manhattan_distance(p1, p2), p1, p2))
 
     _, p1, p2 = heapq.heappop(distances)
 

@@ -19,9 +19,8 @@ def part_one(input_text: str) -> int | None:
 
     distances = []
     for i, p in enumerate(lines):
-        for p2 in lines[i:]:
-            if p != p2:
-                heapq.heappush(distances, (euclidean_difference(p, p2), p, p2))
+        for p2 in lines[i + 1 :]:
+            heapq.heappush(distances, (euclidean_difference(p, p2), p, p2))
 
     connections = defaultdict(int)
     circuits = defaultdict(set)
@@ -70,9 +69,8 @@ def part_two(input_text: str) -> int | None:
     junction_boxes = set(lines)
 
     for i, p1 in enumerate(lines):
-        for p2 in lines[i:]:
-            if p1 != p2:
-                heapq.heappush(distances, (euclidean_difference(p1, p2), p1, p2))
+        for p2 in lines[i + 1 :]:
+            heapq.heappush(distances, (euclidean_difference(p1, p2), p1, p2))
 
     while len(junction_boxes) > 0:
         _, p1, p2 = heapq.heappop(distances)
