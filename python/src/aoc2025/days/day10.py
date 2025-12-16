@@ -29,13 +29,13 @@ def parse_input(input_text):
 
 def bfs(start, goal, options, max_depth=5):
     queue = deque([(start, 0, [start], 0)])
-    solutions = []
     visited = set()
-    shortest_solution_path = float("inf")
+    shortest_solution_length = float("inf")
+    shortest_solution_path = []
 
     while queue:
         current_op, current_val, current_path, current_depth = queue.popleft()
-        if current_depth >= max_depth or current_depth >= shortest_solution_path:
+        if current_depth >= max_depth or current_depth >= shortest_solution_length:
             continue
 
         new_val = current_val ^ current_op
@@ -48,8 +48,10 @@ def bfs(start, goal, options, max_depth=5):
         visited.add(state)
 
         if goal == new_val:
-            solutions.append(current_path)
-            shortest_solution_path = min(shortest_solution_path, len(current_path))
+            solution_length = len(current_path)
+            if solution_length < shortest_solution_length:
+                shortest_solution_length = solution_length
+                shortest_solution_path = current_path
             continue
 
         for next_op in options:
@@ -62,7 +64,7 @@ def bfs(start, goal, options, max_depth=5):
             new_path = current_path + [next_op]
             queue.append((next_op, new_val, new_path, current_depth + 1))
 
-    return solutions
+    return shortest_solution_path
 
 
 def part_one(input_text: str) -> int | None:
@@ -73,12 +75,12 @@ def part_one(input_text: str) -> int | None:
 
     for i, machine in enumerate(machines):
         goal = int("".join(machine), 2)
-        shortest_sequence_length = float("inf")
+        shortest_solution_length = float("inf")
         for seq in button_sequences[i]:
-            solution_paths = bfs(seq, goal, button_sequences[i], max_depth=100)
-            if solution_paths and len(solution_paths[0]) < shortest_sequence_length:
-                solutions[i] = solution_paths[0]
-                shortest_sequence_length = len(solution_paths[0])
+            shortest_solution_path = bfs(seq, goal, button_sequences[i], max_depth=100)
+            if len(shortest_solution_path) < shortest_solution_length:
+                solutions[i] = shortest_solution_path
+                shortest_solution_length = len(shortest_solution_path)
 
     return sum((len(s) for s in solutions.values()))
 
