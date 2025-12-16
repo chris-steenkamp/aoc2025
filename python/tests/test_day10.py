@@ -27,4 +27,4 @@ class TestPart2:
         """Test part two with the example input."""
         # TODO: Update expected value from puzzle description
         result = day10.part_two(example_input)
-        assert result is None  # Replace with expected value
+        assert result == 33  # Replace with expected value

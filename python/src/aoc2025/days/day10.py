@@ -4,19 +4,25 @@ https://adventofcode.com/2025/day/10
 """
 
 from collections import deque
+from functools import cache
+
+import numpy as np
 
 
+@cache
 def parse_input(input_text):
     lines = input_text.strip().split("\n")
     machines = []
     buttons = []
     button_bits = []
+    joltages = []
     for line in lines:
         machine, button = line.split(" ", 1)
-        button, _ = button.rsplit(" ", 1)
+        button, joltage = button.rsplit(" ", 1)
 
         machines.append(list(map(lambda x: "1" if x == "#" else "0", machine[1:-1])))
         buttons.append([tuple(map(int, i[1:-1].split(","))) for i in button.split(" ")])
+        joltages.append(list(map(int, joltage[1:-1].split(","))))
         sequences = []
         for machine_button_sequence in buttons[-1]:
             bit_string = ["0"] * len(machines[-1])
@@ -24,7 +30,7 @@ def parse_input(input_text):
                 bit_string[button_sequence] = "1"
             sequences.append(int("".join(bit_string), 2))
         button_bits.append(sequences)
-    return machines, button_bits
+    return machines, button_bits, joltages
 
 
 def bfs(start, goal, options, max_depth=5):
@@ -67,9 +73,48 @@ def bfs(start, goal, options, max_depth=5):
     return shortest_solution_path
 
 
+def bfs2(start, goal, options, max_depth=5):
+    queue = deque([(start, [0] * len(goal), [start], 0)])
+    visited = set()
+    shortest_solution_length = float("inf")
+    shortest_solution_path = []
+
+    while queue:
+        current_op, current_val, current_path, current_depth = queue.popleft()
+        if current_depth >= max_depth or current_depth >= shortest_solution_length:
+            continue
+
+        if any(y > x for x, y in zip(goal, current_val)):
+            continue
+
+        state = (tuple(current_val), current_op, current_depth)
+
+        if state in visited:
+            continue
+
+        visited.add(state)
+
+        new_val = current_val
+        for i in current_op:
+            new_val[i] += 1
+
+        if goal == new_val:
+            solution_length = len(current_path)
+            if solution_length < shortest_solution_length:
+                shortest_solution_length = solution_length
+                shortest_solution_path = current_path
+            continue
+
+        for next_op in options:
+            new_path = current_path + [next_op]
+            queue.append((next_op, new_val[:], new_path, current_depth + 1))
+
+    return shortest_solution_path
+
+
 def part_one(input_text: str) -> int | None:
     """Solve part one."""
-    machines, button_sequences = parse_input(input_text)
+    machines, button_sequences, _ = parse_input(input_text)
 
     solutions = {}
 
@@ -85,9 +130,54 @@ def part_one(input_text: str) -> int | None:
     return sum((len(s) for s in solutions.values()))
 
 
+def solve_linear(target, vectors):
+    vectors = [
+        np.array(list(map(int, list(str(bin(v)[2:]).zfill(len(target))))))
+        for v in vectors
+    ]
+
+    target = np.array(target)
+
+    matrix = np.column_stack(vectors)
+
+    # calcuate the pseudoinverse of the matrix (Moore-Penrose) ----
+    matrix_inv = np.linalg.pinv(matrix)
+    alpha = matrix_inv @ target
+
+    return np.round(np.sum(alpha))
+
+
 def part_two(input_text: str) -> int | None:
     """Solve part two."""
-    lines = input_text.strip().split("\n")
+    _, button_sequences, joltages = parse_input(input_text)
 
-    # TODO: Implement solution
-    return None
+    solutions = {}
+
+    for i, joltage in enumerate(joltages):
+        solution = solve_linear(joltage, button_sequences[i])
+        solutions[i] = solution
+
+    return sum(solutions.values()) - 1
+
+
+def part_two_bfs(input_text: str) -> int | None:
+    """Solve part two."""
+    _, button_sequences, joltages = parse_input(input_text)
+
+    solutions = {}
+
+    for i, joltage in enumerate(joltages):
+        shortest_solution_length = float("inf")
+        print(f"Solving machine {i}")
+        for seq in button_sequences[i]:
+            shortest_solution_path = bfs2(
+                seq, joltage, button_sequences[i], max_depth=100
+            )
+            if (
+                shortest_solution_path
+                and len(shortest_solution_path) < shortest_solution_length
+            ):
+                solutions[i] = shortest_solution_path
+                shortest_solution_length = len(shortest_solution_path)
+
+    return sum((len(s) for s in solutions.values()))
