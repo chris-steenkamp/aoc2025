@@ -24,7 +24,21 @@ class TestPart2:
     """Tests for Part 2."""
 
     def test_example(self, example_input):
+        example_input = """svr: aaa bbb
+aaa: fft
+fft: ccc
+bbb: tty
+tty: ccc
+ccc: ddd eee
+ddd: hub
+hub: fff
+eee: dac
+dac: fff
+fff: ggg hhh
+ggg: out
+hhh: out
+"""
         """Test part two with the example input."""
         # TODO: Update expected value from puzzle description
         result = day11.part_two(example_input)
-        assert result is None  # Replace with expected value
+        assert result == 2  # Replace with expected value
