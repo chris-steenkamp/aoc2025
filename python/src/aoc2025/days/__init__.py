@@ -3,7 +3,7 @@
 Each day is implemented as a separate module (day01, day02, etc.).
 """
 
-from . import day01, day02, day03, day04, day05, day06, day07, day08, day09
+from . import day01, day02, day03, day04, day05, day06, day07, day08, day09, day10
 
 # Dictionary mapping day numbers to modules
 DAYS = {
@@ -16,6 +16,7 @@ DAYS = {
     7: day07,
     8: day08,
     9: day09,
+    10: day10,
 }
 
 
