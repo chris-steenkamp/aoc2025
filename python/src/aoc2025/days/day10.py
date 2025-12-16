@@ -31,10 +31,11 @@ def bfs(start, goal, options, max_depth=5):
     queue = deque([(start, 0, [start], 0)])
     solutions = []
     visited = set()
+    shortest_solution_path = float("inf")
 
     while queue:
         current_op, current_val, current_path, current_depth = queue.popleft()
-        if current_depth >= max_depth:
+        if current_depth >= max_depth or current_depth >= shortest_solution_path:
             continue
 
         new_val = current_val ^ current_op
@@ -48,6 +49,7 @@ def bfs(start, goal, options, max_depth=5):
 
         if goal == new_val:
             solutions.append(current_path)
+            shortest_solution_path = min(shortest_solution_path, len(current_path))
             continue
 
         for next_op in options:
@@ -73,7 +75,7 @@ def part_one(input_text: str) -> int | None:
         goal = int("".join(machine), 2)
         shortest_sequence_length = float("inf")
         for seq in button_sequences[i]:
-            solution_paths = bfs(seq, goal, button_sequences[i], max_depth=7)
+            solution_paths = bfs(seq, goal, button_sequences[i], max_depth=100)
             if solution_paths and len(solution_paths[0]) < shortest_sequence_length:
                 solutions[i] = solution_paths[0]
                 shortest_sequence_length = len(solution_paths[0])
