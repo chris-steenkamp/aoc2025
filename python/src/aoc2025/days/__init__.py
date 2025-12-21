@@ -15,6 +15,7 @@ from . import (
     day09,
     day10,
     day11,
+    day12,
 )
 
 # Dictionary mapping day numbers to modules
@@ -30,6 +31,7 @@ DAYS = {
     9: day09,
     10: day10,
     11: day11,
+    12: day12,
 }
 
 
